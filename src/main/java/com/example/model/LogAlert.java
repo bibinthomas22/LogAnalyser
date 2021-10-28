@@ -1,61 +1,84 @@
 package com.example.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@Entity
+@Table(name = "alerts")
 public class LogAlert {
+	@Id
+	@JsonProperty("id")
+	private String id;
 
-    @JsonProperty("id")
-    private String id;
+	@JsonProperty("duration")
+	private long duration;
 
-    @JsonProperty("duration")
-    private int duration;
+	@JsonProperty("type")
+	private String type;
 
-    @JsonProperty("type")
-    private String type;
+	@JsonProperty("host")
+	private String host;
 
-    @JsonProperty("host")
-    private String host;
+	@JsonProperty("alert")
+	private Boolean alert;
 
-    @JsonProperty("alert")
-    private Boolean alert;
+	public LogAlert() {
+	}
 
-    public String getId() {
-        return id;
-    }
+	public LogAlert(LogEvent event, long duration) {
+		this.id = event.getId();
+		this.type = event.getType();
+		this.host = event.getHost();
+		this.duration = duration;
+		this.alert = Boolean.FALSE;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public int getDuration() {
-        return duration;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
+	public long getDuration() {
+		return duration;
+	}
 
-    public String getType() {
-        return type;
-    }
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
 
-    public void setType(String type) {
-        this.type = type;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public String getHost() {
-        return host;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
 
-    public void setHost(String host) {
-        this.host = host;
-    }
+	public String getHost() {
+		return host;
+	}
 
-    public Boolean getAlert() {
-        return alert;
-    }
+	public void setHost(String host) {
+		this.host = host;
+	}
 
-    public void setAlert(Boolean alert) {
-        this.alert = alert;
-    }
+	public Boolean getAlert() {
+		return alert;
+	}
+
+	public void setAlert(Boolean alert) {
+		this.alert = alert;
+	}
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
+	}
 }
